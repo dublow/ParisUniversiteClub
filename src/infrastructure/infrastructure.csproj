@@ -4,6 +4,14 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="tables\login.sqllite" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="tables\login.sqllite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="repositories\" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

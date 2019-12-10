@@ -1,6 +1,7 @@
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using web.tools;
 
 namespace NancyBootstrapAdmin2
 {
@@ -14,7 +15,9 @@ namespace NancyBootstrapAdmin2
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration(((context, builder) =>
                     {
-                        builder.AddJsonFile($"config.{context.HostingEnvironment.EnvironmentName.ToLower()}.json");
+                        builder.AddConfiguration(
+                            ConfigurationLoader
+                                .GetConfiguration(context.HostingEnvironment.EnvironmentName));
                     }))
                 .Build();
 
