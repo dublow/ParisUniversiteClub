@@ -4,4 +4,5 @@ storage: none
 framework: netcore3.0, netstandard2.0, netstandard2.1
 nuget Microsoft.AspNetCore.Owin 3.0.0
 nuget Nancy 2.0.0-clinteastwood clinteastwood
+nuget Nancy.Authentication.Forms 2.0.0-clinteastwood clinteastwood
 nuget sqlite-net-pcl 1.7.302-beta beta

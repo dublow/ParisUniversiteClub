@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using infrastructure.providers;
 using infrastructure.repositories;
 using infrastructure.tables;
 using Microsoft.AspNetCore.Builder;
@@ -9,11 +10,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Nancy;
+using Nancy.Authentication.Forms;
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
+using Nancy.Cryptography;
 using Nancy.Owin;
 using Nancy.TinyIoc;
 using SQLite;
+using web.auth;
 
 namespace web
 {
@@ -60,6 +64,19 @@ namespace web
             nancyConventions.StaticContentsConventions.AddDirectory("Content", "Content");
         }
 
+        protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)
+        {
+            base.RequestStartup(container, pipelines, context);
+
+            var formAuthConfiguration = new FormsAuthenticationConfiguration(CryptographyConfiguration)
+            {
+                RedirectUrl = "~/Login",
+                UserMapper = container.Resolve<IUserMapper>()
+            };
+
+            FormsAuthentication.Enable(pipelines, formAuthConfiguration);
+        }
+
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
             base.ConfigureApplicationContainer(container);
@@ -70,9 +87,22 @@ namespace web
             var db = new SQLiteConnection(dbPath);
             db.CreateTable<LoginDb>();
 
-            var repository = new Repository(db);
+            var repository = new Repository(new Connection(dbPath));
             container.Register<IWriteRepository>(repository);
             container.Register<IReadRepository>(repository);
+            container.Register<IUserMapper, UserMapper>();
+        }
+
+        protected override CryptographyConfiguration CryptographyConfiguration
+        {
+            get
+            {
+                return new CryptographyConfiguration(
+                    new AesEncryptionProvider(new PassphraseKeyGenerator("SuperSecretPass",
+                        new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 })),
+                    new DefaultHmacProvider(new PassphraseKeyGenerator("UberSuperSecure",
+                        new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 })));
+            }
         }
     }
 }

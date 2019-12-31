@@ -1,2 +1,3 @@
 Nancy
 Microsoft.AspNetCore.Owin
+Nancy.Authentication.Forms

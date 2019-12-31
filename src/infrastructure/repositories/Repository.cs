@@ -1,43 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using infrastructure.providers;
 using infrastructure.tables;
-using SQLite;
 
 namespace infrastructure.repositories
 {
     public class Repository : IWriteRepository, IReadRepository
     {
-        private readonly SQLiteConnection _sqLiteConnection;
+        private readonly IConnection _connection;
 
-        public Repository(SQLiteConnection sqLiteConnection)
+        public Repository(IConnection sqLiteConnection)
         {
-            _sqLiteConnection = sqLiteConnection;
+            _connection = sqLiteConnection;
         }
 
         public void Add<T>(T entity) where T : ITable
         {
-            _sqLiteConnection.Insert(entity);
+            using var cnx = _connection.Create();
+            cnx.Insert(entity);
         }
 
         public void Update<T>(T entity) where T : ITable
         {
-            _sqLiteConnection.Update(entity);
+            using var cnx = _connection.Create();
+            cnx.Update(entity);
         }
 
         public void Delete<T>(T entity) where T : ITable
         {
-            _sqLiteConnection.Delete(entity);
+            using var cnx = _connection.Create();
+            cnx.Delete(entity);
         }
 
         public T Get<T>(Expression<Func<T, bool>> predicate) where T : ITable, new()
         {
-            return _sqLiteConnection.Get(predicate);
+            using var cnx = _connection.Create();
+            return cnx.Get(predicate);
         }
 
         public IEnumerable<T> Find<T>(Expression<Func<T, bool>> predicate) where T : ITable, new()
         {
-            return _sqLiteConnection.Table<T>().Where(predicate);
+            using var cnx = _connection.Create();
+            return cnx.Table<T>().Where(predicate);
         }
     }
 }

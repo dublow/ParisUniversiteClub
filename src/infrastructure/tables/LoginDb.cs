@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using System;
+using SQLite;
 
 namespace infrastructure.tables
 {
@@ -14,6 +15,14 @@ namespace infrastructure.tables
         [MaxLength(64), NotNull]
         public string Password { get; set; }
         [NotNull]
-        public int AccountType { get; set; }
+        public Role Role { get; set; }
+        [NotNull]
+        public Guid UniqueIdentifier { get; set; }
+    }
+
+    public enum Role
+    {
+        User = 0,
+        Admin = 1
     }
 }

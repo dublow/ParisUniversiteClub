@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using infrastructure.extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using web.tools;
@@ -21,7 +20,6 @@ namespace web
                             ConfigurationLoader
                                 .GetConfiguration(context.HostingEnvironment.EnvironmentName));
                     })
-                .ConfigureInfrastructure("puc")
                 .Build();
 
             host.Run();
