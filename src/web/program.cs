@@ -1,9 +1,11 @@
+using System;
 using System.IO;
+using infrastructure.extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using web.tools;
 
-namespace NancyBootstrapAdmin2
+namespace web
 {
     public class Program
     {
@@ -13,12 +15,13 @@ namespace NancyBootstrapAdmin2
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseKestrel()
                 .UseStartup<Startup>()
-                .ConfigureAppConfiguration(((context, builder) =>
+                .ConfigureAppConfiguration((context, builder) =>
                     {
                         builder.AddConfiguration(
                             ConfigurationLoader
                                 .GetConfiguration(context.HostingEnvironment.EnvironmentName));
-                    }))
+                    })
+                .ConfigureInfrastructure("puc")
                 .Build();
 
             host.Run();

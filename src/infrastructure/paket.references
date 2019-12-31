@@ -1,1 +1,2 @@
-System.Data.SQLite
+Microsoft.AspNetCore.Owin
+sqlite-net-pcl

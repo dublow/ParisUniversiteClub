@@ -1,10 +1,11 @@
-﻿using Nancy;
+﻿using infrastructure.repositories;
+using Nancy;
 
-namespace NancyBootstrapAdmin2.Modules
+namespace web.modules
 {
     public class PagesModule : NancyModule
     {
-        public PagesModule()
+        public PagesModule(IReadRepository readRepository, IWriteRepository writeRepository)
         {
             Get("/", _=> View["home.html"]);
             Get("/404", _ => View["404.html"]);
