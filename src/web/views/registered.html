@@ -1,0 +1,70 @@
+﻿@Master['master-admin.html']
+
+@Section['Content']
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%"cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Email</th>
+                            <th>Date de naissance</th>
+                            <th>Date joué au PUC</th>
+                            <th>Position (dans le jeu)</th>
+                            <th>Numéro de téléphone</th>
+                            <th>Adresse postale</th>
+                            <th>Adhérent</th>
+                            <th>Optin</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Email</th>
+                            <th>Date de naissance</th>
+                            <th>Date joué au PUC</th>
+                            <th>Position (dans le jeu)</th>
+                            <th>Numéro de téléphone</th>
+                            <th>Adresse postale</th>
+                            <th>Adhérent</th>
+                            <th>Optin</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @Each
+                        <tr>
+                            <td>@Current.Lastname</td>
+                            <td>@Current.Firstname</td>
+                            <td>@Current.Email</td>
+                            <td>@Current.Birthday</td>
+                            <td>@Current.GameDate</td>
+                            <td>@Current.Position</td>
+                            <td>@Current.Phone</td>
+                            <td>@Current.Address</td>
+                            <td>@Current.Member</td>
+                            <td>@Current.Optin</td>
+                        </tr>
+                        @EndEach
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@EndSection

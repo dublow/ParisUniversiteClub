@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using business;
 using infrastructure.providers;
 using infrastructure.repositories;
 using infrastructure.tables;
@@ -86,11 +87,15 @@ namespace web
 
             var db = new SQLiteConnection(dbPath);
             db.CreateTable<LoginDb>();
+            db.CreateTable<RegisterDb>();
 
             var repository = new Repository(new Connection(dbPath));
             container.Register<IWriteRepository>(repository);
             container.Register<IReadRepository>(repository);
             container.Register<IUserMapper, UserMapper>();
+
+            container
+                .Register(new RegisterBusiness(container.Resolve<IWriteRepository>()));
         }
 
         protected override CryptographyConfiguration CryptographyConfiguration

@@ -15,6 +15,7 @@
     <None Remove="views\master-admin.html" />
     <None Remove="views\master.html" />
     <None Remove="views\register.html" />
+    <None Remove="views\registered.html" />
     <None Remove="views\tables.html" />
     <None Remove="views\utilities-animation.html" />
     <None Remove="views\utilities-border.html" />
@@ -41,6 +42,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="views\forgot-password.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\registered.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="views\tables.html">
@@ -90,6 +94,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\business\business.csproj" />
     <ProjectReference Include="..\infrastructure\infrastructure.csproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

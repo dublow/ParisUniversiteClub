@@ -42,7 +42,7 @@ namespace infrastructure.repositories
         public IEnumerable<T> Find<T>(Expression<Func<T, bool>> predicate) where T : ITable, new()
         {
             using var cnx = _connection.Create();
-            return cnx.Table<T>().Where(predicate);
+            return cnx.Table<T>().Where(predicate).ToList();
         }
     }
 }

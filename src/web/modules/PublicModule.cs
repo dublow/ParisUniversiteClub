@@ -32,7 +32,7 @@ namespace web.modules
 
                 return this.LoginAndRedirect(user.UniqueIdentifier, fallbackRedirectUrl:"/");
             });
-            Get("/Register", _ => View["register.html"]);
+            
             Get("/forgot-password", _ => View["forgot-password.html"]);
             Get("/blank", _ => View["blank.html"]);
             Get("/Buttons", _ => View["buttons.html"]);
