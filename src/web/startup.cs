@@ -19,6 +19,7 @@ using Nancy.Owin;
 using Nancy.TinyIoc;
 using SQLite;
 using web.auth;
+using web.tools;
 
 namespace web
 {
@@ -81,6 +82,7 @@ namespace web
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
             base.ConfigureApplicationContainer(container);
+            var configuration = ConfigurationLoader.GetConfiguration(_webHostEnvironment.EnvironmentName);
 
             var dbPath = Path.Combine(Environment.CurrentDirectory,
                 $"{_webHostEnvironment.EnvironmentName.ToLower()}_puc.db");
@@ -94,8 +96,16 @@ namespace web
             container.Register<IReadRepository>(repository);
             container.Register<IUserMapper, UserMapper>();
 
+            
             container
                 .Register(new RegisterBusiness(container.Resolve<IWriteRepository>()));
+
+            container.Register<IEmailSender>(new EmailSender(
+                configuration.GetValue<string>("Smtp:Server"),
+                configuration.GetValue<int>("Smtp:Port"),
+                configuration.GetValue<string>("Smtp:FromAddress"),
+                configuration.GetValue<string>("Smtp:Login"),
+                configuration.GetValue<string>("Smtp:Password")));
         }
 
         protected override CryptographyConfiguration CryptographyConfiguration

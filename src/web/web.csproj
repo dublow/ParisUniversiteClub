@@ -9,6 +9,7 @@
     <None Remove="views\buttons.html" />
     <None Remove="views\cards.html" />
     <None Remove="views\charts.html" />
+    <None Remove="views\email.html" />
     <None Remove="views\forgot-password.html" />
     <None Remove="views\home.html" />
     <None Remove="views\login.html" />
@@ -42,6 +43,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="views\forgot-password.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\email.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="views\registered.html">

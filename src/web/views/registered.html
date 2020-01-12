@@ -4,64 +4,175 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+    <h1 class="h5 mb-2 text-gray-800">Filtre</h1>
+    <form method="post" action="/filtered">
+        <div class="row">
+            <div class="col-auto">
+                <div class="form-group row">
+                    <div class="col-auto">
+                        <span class="d-block">Range</span>
+                        <select class="form-control" name="range" id="range">
+
+                            @IfNot.Filter.HasRange
+                            <option selected disabled>Range</option>
+                            @EndIf
+
+                            @If.Filter.IsBeforeRange
+                            <option selected value="before" name="before">Avant</option>
+                            @EndIf
+                            @IfNot.Filter.IsBeforeRange
+                            <option value="before" name="before">Avant</option>
+                            @EndIf
+
+                            @If.Filter.IsAfterRange
+                            <option selected value="after" name="after">Après</option>
+                            @EndIf
+                            @IfNot.Filter.IsAfterRange
+                            <option value="after" name="after">Après</option>
+                            @EndIf
+
+                            @If.Filter.IsBetweenRange
+                            <option selected value="between" name="between">Entre</option>
+                            @EndIf
+                            @IfNot.Filter.IsBetweenRange
+                            <option value="between" name="between">Entre</option>
+                            @EndIf
+
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <span class="d-block">Année de naissance</span>
+                        @If.Filter.HasBirthdayStart
+                        <input type="text" class="form-control form-control-user" id="birthdayStart" name="birthdayStart" placeholder="Année de naissance" value="@Model.Filter.BirthdayStart">
+                        @EndIf
+                        @IfNot.Filter.HasBirthdayStart
+                        <input type="text" class="form-control form-control-user" id="birthdayStart" name="birthdayStart" placeholder="Année de naissance">
+                        @EndIf
+                    </div>
+                    <div class="col-auto">
+                        <span class="d-block">Année de naissance</span>
+                        @If.Filter.HasBirthdayEnd
+                        <input type="text" class="form-control form-control-user" id="birthdayEnd" name="birthdayEnd" placeholder="Année de naissance" value="@Model.Filter.BirthdayEnd">
+                        @EndIf
+                        @IfNot.Filter.HasBirthdayEnd
+                        <input type="text" class="form-control form-control-user" id="birthdayEnd" name="birthdayEnd" placeholder="Année de naissance">
+                        @EndIf
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="form-group row">
+                    <div class="col-auto">
+                        <span class="d-block">Optin</span>
+                        <select class="form-control" name="isOptin" id="selectOptin">
+
+                            @IfNot.Filter.HasOptin
+                            <option selected disabled>Optin</option>
+                            @EndIf
+
+                            @If.Filter.IsYesOptin
+                            <option selected value="true" name="isOptin">Oui</option>
+                            @EndIf
+                            @IfNot.Filter.IsYesOptin
+                            <option value="true" name="isOptin">Oui</option>
+                            @EndIf
+
+                            @If.Filter.IsNoOptin
+                            <option selected value="false" name="isOptin">Non</option>
+                            @EndIf
+                            @IfNot.Filter.IsYesOptin
+                            <option value="false" name="isOptin">Non</option>
+                            @EndIf
+
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <span class="d-block">Adhérent</span>
+                        <select class="form-control" name="isMember" id="selectMember">
+
+                            @IfNot.Filter.HasMember
+                            <option selected disabled>Adhérent</option>
+                            @EndIf
+
+                            @If.Filter.IsYesMember
+                            <option selected value="true" name="isMember">Oui</option>
+                            @EndIf
+                            @IfNot.Filter.IsYesMember
+                            <option value="true" name="isMember">Oui</option>
+                            @EndIf
+
+                            @If.Filter.IsNoMember
+                            <option selected value="false" name="isMember">Non</option>
+                            @EndIf
+                            @IfNot.Filter.IsNoMember
+                            <option value="false" name="isMember">Non</option>
+                            @EndIf
+
+                        </select>
+                    </div>
+                    <div class="col-auto">
+                        <span class="d-block">&nbsp;</span>
+                        <input type="submit" class="btn btn-primary btn-user btn-block" name="filterSubmit" value="Filtrer" />
+                    </div>
+                    <div class="col-auto">
+                        <span class="d-block">&nbsp;</span>
+                        <input type="submit" class="btn btn-primary btn-user btn-block" name="clearFilterSubmit" value="Réinitialiser le Filtre" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Utilisateurs</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%"cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Email</th>
-                            <th>Date de naissance</th>
-                            <th>Date joué au PUC</th>
-                            <th>Position (dans le jeu)</th>
-                            <th>Numéro de téléphone</th>
-                            <th>Adresse postale</th>
-                            <th>Adhérent</th>
-                            <th>Optin</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Email</th>
-                            <th>Date de naissance</th>
-                            <th>Date joué au PUC</th>
-                            <th>Position (dans le jeu)</th>
-                            <th>Numéro de téléphone</th>
-                            <th>Adresse postale</th>
-                            <th>Adhérent</th>
-                            <th>Optin</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        @Each
-                        <tr>
-                            <td>@Current.Lastname</td>
-                            <td>@Current.Firstname</td>
-                            <td>@Current.Email</td>
-                            <td>@Current.Birthday</td>
-                            <td>@Current.GameDate</td>
-                            <td>@Current.Position</td>
-                            <td>@Current.Phone</td>
-                            <td>@Current.Address</td>
-                            <td>@Current.Member</td>
-                            <td>@Current.Optin</td>
-                        </tr>
-                        @EndEach
-
-
-                    </tbody>
-                </table>
+                @If.HasRegister
+                <form method="post" action="/email">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Date de naissance</th>
+                                <th>Date joué au PUC</th>
+                                <th>Position (dans le jeu)</th>
+                                <th>Numéro de téléphone</th>
+                                <th>Adresse postale</th>
+                                <th>Adhérent</th>
+                                <th>Optin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @Each.Register
+                            <tr>
+                                <td>@Current.Lastname</td>
+                                <td>@Current.Firstname</td>
+                                <td>@Current.Email</td>
+                                <td>@Current.Birthday</td>
+                                <td>@Current.GameDate</td>
+                                <td>@Current.Position</td>
+                                <td>@Current.Phone</td>
+                                <td>@Current.Address</td>
+                                <td>@Current.Member</td>
+                                <td>@Current.Optin</td>
+                            </tr>
+                            @EndEach
+                        </tbody>
+                    </table>
+                    <div class="col-auto float-right">
+                        <input type="hidden" name="registerIds" value="@Model.Ids" />
+                        <input type="submit" class="btn btn-primary btn-user btn-block" name="sendEmail" value="Envoyer un email" />
+                    </div>
+                </form>
+                @EndIf
+                @IfNot.HasRegister
+                <p>Aucun résultat</p>
+                @EndIf
             </div>
         </div>
     </div>

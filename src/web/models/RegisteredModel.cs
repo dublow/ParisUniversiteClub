@@ -5,6 +5,7 @@ namespace web.models
 {
     public class RegisteredModel
     {
+        public int Id { get; }
         public string Lastname { get; }
         public string Firstname { get; }
         public string Email { get; }
@@ -18,6 +19,7 @@ namespace web.models
 
         public RegisteredModel(RegisterDb model)
         {
+            Id = model.Id;
             Lastname = model.Lastname;
             Firstname = model.Firstname;
             Email = model.Email;
